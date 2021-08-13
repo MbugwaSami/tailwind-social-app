@@ -1,9 +1,30 @@
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { toastNotification } from "../helpers/toast";
+
+import UseAppPost from "../helpers/axiosHelper";
 
 export default function Login() {
+  const [submitData, setSubmitData] = useState();
+  const { isLoading, serverError, apiData } = UseAppPost("/login", submitData);
   const history = useHistory();
+  useEffect(() => {
+    if (apiData?.message === "Login Successful!") {
+      toastNotification("success", apiData?.message);
+      history.push("/main");
+    } else {
+      toastNotification("error", apiData?.message);
+    }
+  }, [apiData]);
+
+  useEffect(() => {
+    if (serverError) {
+      toastNotification("error", serverError);
+    }
+  }, [serverError]);
+
   const loginSchema = Yup.object().shape({
     email: Yup.string()
       .email("Email address is invalid")
@@ -31,7 +52,7 @@ export default function Login() {
           initialValues={{ email: "", password: "" }}
           validationSchema={loginSchema}
           onSubmit={async (values) => {
-            console.log(values, "value");
+            setSubmitData(values);
           }}
         >
           {({
@@ -96,7 +117,7 @@ export default function Login() {
                   type="submit"
                   className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 >
-                  {isSubmitting ? "Loading..." : "Sign in"}
+                  {isLoading ? "Loading..." : "Sign in"}
                 </button>
               </div>
             </form>

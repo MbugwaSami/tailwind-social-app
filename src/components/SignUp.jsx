@@ -1,7 +1,31 @@
 import * as Yup from "yup";
 import { Formik } from "formik";
+import { useHistory } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { toastNotification } from "../helpers/toast";
+
+import UseAppPost from "../helpers/axiosHelper";
 
 export default function SignUp() {
+  const [submitData, setSubmitData] = useState();
+  const { isLoading, serverError, apiData } = UseAppPost("/user", submitData);
+  const history = useHistory();
+
+  useEffect(() => {
+    if (apiData?.message === "New User Added!") {
+      toastNotification("success", "Account created");
+      history.push("/");
+    } else {
+      toastNotification("error", apiData?.message);
+    }
+  }, [apiData]);
+
+  useEffect(() => {
+    if (serverError) {
+      toastNotification("error", serverError);
+    }
+  }, [serverError]);
+
   const phoneRegExp = /^(2547)([0-9|7])(\d){7}$/;
   const SignupSchema = Yup.object().shape({
     firstName: Yup.string()
@@ -52,7 +76,7 @@ export default function SignUp() {
             return errors;
           }}
           onSubmit={async (values) => {
-            console.log(values, "value");
+            setSubmitData(values);
           }}
         >
           {({
@@ -171,7 +195,7 @@ export default function SignUp() {
                   type="submit"
                   className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 >
-                  {isSubmitting ? "Saving..." : "Sign up"}
+                  {isLoading ? "Saving..." : "Sign up"}
                 </button>
               </div>
             </form>
