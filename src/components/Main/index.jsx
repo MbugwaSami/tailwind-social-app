@@ -3,7 +3,7 @@ import ProfileCardView from "./ProfileCard";
 
 import img from "../../resources/profile.jpg";
 
-function App() {
+function MainPage() {
   const posts = [
     {
       createdBy: {
@@ -75,4 +75,4 @@ function App() {
   );
 }
 
-export default App;
+export default MainPage;
