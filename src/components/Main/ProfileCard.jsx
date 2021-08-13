@@ -1,13 +1,16 @@
+import { useHistory } from "react-router-dom";
+
 import img from "../../resources/profile.jpg";
 
 function ProfileCardView(props) {
+  const history = useHistory();
   const { currentUser } = props;
 
-  const renderMenuItem = (labelText, icon) => {
+  const renderMenuItem = (labelText, icon, url) => {
     return (
       <a
         className="hover:bg-gray-300 bg-gray-200 border-t-2 p-3 w-full text-xl text-left text-gray-600 "
-        href=""
+        href={url}
       >
         <i
           className={`fa ${icon} text-gray-600 text-2xl pr-1 pt-1 float-right`}
@@ -16,6 +19,7 @@ function ProfileCardView(props) {
       </a>
     );
   };
+
   return (
     <div className="w-0 md:w-1/4 lg:w-1/5 h-0 md:h-screen overflow-y-hidden bg-white shadow-lg">
       <div className="p-5 bg-white sticky top-0">
@@ -37,9 +41,9 @@ function ProfileCardView(props) {
         </div>
       </div>
       <div className="w-full h-screen  flex flex-col hover:cursor-pointer">
-        {renderMenuItem("Messages", "fa-comment")}
-        {renderMenuItem("Settings", "fa-cog")}
-        {renderMenuItem("Log out", "fa-arrow-left")}
+        {renderMenuItem("Messages", "fa-comment", "")}
+        {renderMenuItem("Settings", "fa-cog", "")}
+        {renderMenuItem("Log out", "fa-arrow-left", "/")}
       </div>
     </div>
   );

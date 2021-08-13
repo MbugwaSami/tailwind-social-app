@@ -16,6 +16,28 @@ function MainPage() {
       commentImage:
         "https://images.unsplash.com/photo-1572817519612-d8fadd929b00?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
     },
+    {
+      createdBy: {
+        firstName: "Raphael",
+        lastName: "Varane",
+        imageUrl: img,
+      },
+      createdOn: "12 Aug, 2021",
+      commentText: "The seven kingdoms in GOT",
+      commentImage:
+        "https://images.unsplash.com/photo-1572817519612-d8fadd929b00?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
+    },
+    {
+      createdBy: {
+        firstName: "Marcus",
+        lastName: "Rashford",
+        imageUrl: img,
+      },
+      createdOn: "12 Aug, 2021",
+      commentText: "Winter time",
+      commentImage:
+        "https://images.unsplash.com/photo-1572817519612-d8fadd929b00?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
+    },
   ];
   return (
     <div className="w-full flex flex-row flex-wrap">
